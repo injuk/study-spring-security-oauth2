@@ -30,9 +30,8 @@ class IndexController {
 
     // 스프링 시큐리티가 요 친구를 가로챔
     @GetMapping("/login")
-    @ResponseBody
     fun login(): String {
-        return "login"
+        return "loginForm"
     }
 
     @GetMapping("/join")
