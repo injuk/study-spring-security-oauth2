@@ -2,6 +2,8 @@ package ga.injuk.security.controllers
 
 import ga.injuk.security.models.User
 import ga.injuk.security.repositories.UserRepository
+import org.springframework.security.access.annotation.Secured
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -47,11 +49,24 @@ class IndexController(
 
     @PostMapping("/join")
     fun join(user: User): String {
-
         userRepository.save(user.copy(
             password = encoder.encode(user.password)
         ))
 
         return "redirect:/loginForm"
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/info")
+    @ResponseBody
+    fun info(): String {
+        return "개인정보"
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/data")
+    @ResponseBody
+    fun data(): String {
+        return "데이터 정보"
     }
 }
