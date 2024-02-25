@@ -21,10 +21,4 @@ data class User(
     val createDate: Timestamp?,
 
     val role: String = Constants.ROLE_USER,
-) {
-    companion object {
-        fun from(user: User): User = user.copy(
-            password = PasswordEncoder.encode(user.password),
-        )
-    }
-}
+)

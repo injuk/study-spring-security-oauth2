@@ -13,6 +13,9 @@ import org.springframework.security.web.access.expression.WebExpressionAuthoriza
 class SecurityConfig {
 
     @Bean
+    fun passwordEncoder(): BCryptPasswordEncoder = BCryptPasswordEncoder()
+
+    @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain = http.run {
         csrf { it.disable() }
         authorizeHttpRequests {
@@ -37,7 +40,12 @@ class SecurityConfig {
 //        }
 
         // 로그인 페이지
-        formLogin { it.loginPage("/loginForm") }
+        formLogin {
+            it
+                .loginPage("/loginForm")
+                .loginProcessingUrl("/login") // /login 호출 시 스프링 시큐리티가 이를 가로채어 로그인을 진행
+                .defaultSuccessUrl("/") // 로그인 성공시 리다이렉트
+        }
 
         build()
     }
