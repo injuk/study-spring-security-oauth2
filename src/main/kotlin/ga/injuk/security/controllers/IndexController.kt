@@ -1,6 +1,5 @@
 package ga.injuk.security.controllers
 
-import ga.injuk.security.common.Constants
 import ga.injuk.security.models.User
 import ga.injuk.security.repositories.UserRepository
 import org.springframework.stereotype.Controller

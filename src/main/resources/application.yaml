@@ -9,7 +9,7 @@ server:
 
 spring:
   profiles:
-    active: ${CSPRING_PROFILE:default}
+    active: ${SPRING_PROFILE:default}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://127.0.0.1:33306/security?serverTimezone=Asia/Seoul"
