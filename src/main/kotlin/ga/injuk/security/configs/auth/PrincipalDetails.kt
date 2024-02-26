@@ -3,6 +3,7 @@ package ga.injuk.security.configs.auth
 import ga.injuk.security.models.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.oauth2.core.user.OAuth2User
 
 /**
  * 스프링 시큐리티가 /login에 대한 접근을 가로채어 로그인을 진행시킬 때,
@@ -13,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails
  * 다시 말해, PrincipalDetails는 User 정보를 품고 Authentication 객체에 포함되어 스프링 시큐리티 세션 영역에 저장되어야 한다.
  */
 class PrincipalDetails(
-    private val user: User,
-) : UserDetails {
+    val user: User,
+) : UserDetails, OAuth2User {
     // 해당 User의 권한을 반환
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return mutableListOf(object : GrantedAuthority {
@@ -34,4 +35,16 @@ class PrincipalDetails(
 
     // 예를 들어 정책 상 마지막 로그인 날짜로부터 1년이 지난 경우 휴면이라면, 이를 계산하여 false를 반환할 수 있다.
     override fun isEnabled(): Boolean = true
+
+    override fun getName(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun <A : Any?> getAttribute(name: String?): A? {
+        return super.getAttribute(name)
+    }
+
+    override fun getAttributes(): MutableMap<String, Any> {
+        TODO("Not yet implemented")
+    }
 }
