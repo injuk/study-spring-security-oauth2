@@ -36,17 +36,17 @@ class SecurityConfig {
                 .anyRequest().permitAll()
         }
 
-
-//        logout {
-//            it.log
-//        }
-
-        // 로그인 페이지
+        // 로그인 페이지, 인증이 필요한 경우 무조건 아래의 로그인 폼을 사용한다.
         formLogin {
             it
                 .loginPage("/loginForm")
                 .loginProcessingUrl("/login") // /login 호출 시 스프링 시큐리티가 이를 가로채어 로그인을 진행
                 .defaultSuccessUrl("/") // 로그인 성공시 리다이렉트
+        }
+
+        oauth2Login {
+            // 일반 로그인 페이지와 oauth2.0 용 로그인 페이지의 주소를 맞춰주었다.
+            it.loginPage("/loginForm") // 구글 로그인 완료된 후의 후처리가 필요할 것!
         }
 
         build()

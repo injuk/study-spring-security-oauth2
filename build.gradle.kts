@@ -29,6 +29,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+
     implementation("org.springframework.boot:spring-boot-starter-mustache")
     implementation("com.mysql:mysql-connector-j")
 }
