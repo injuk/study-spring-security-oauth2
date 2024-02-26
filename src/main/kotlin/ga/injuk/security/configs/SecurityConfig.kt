@@ -1,5 +1,6 @@
 package ga.injuk.security.configs
 
+import ga.injuk.security.configs.oauth.PrincipalOauth2UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -12,7 +13,9 @@ import org.springframework.security.web.access.expression.WebExpressionAuthoriza
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록됨
 @EnableMethodSecurity(securedEnabled = true, prePostEnabled = true) // 1. secured 어노테이션을 활성화한다! 2. preAuthorize와 postAuthorize 어노테이션을 활성화한다!
-class SecurityConfig {
+class SecurityConfig(
+    private val principalOauth2UserService: PrincipalOauth2UserService,
+) {
 
     @Bean
     fun passwordEncoder(): BCryptPasswordEncoder = BCryptPasswordEncoder()
@@ -47,6 +50,9 @@ class SecurityConfig {
         oauth2Login {
             // 일반 로그인 페이지와 oauth2.0 용 로그인 페이지의 주소를 맞춰주었다.
             it.loginPage("/loginForm") // 구글 로그인 완료된 후의 후처리가 필요할 것!
+                .userInfoEndpoint { configurer ->
+                    configurer.userService(principalOauth2UserService)
+                }
         }
 
         build()

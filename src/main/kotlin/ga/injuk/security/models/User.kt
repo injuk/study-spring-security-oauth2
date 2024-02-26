@@ -20,5 +20,8 @@ data class User(
     @CreationTimestamp
     val createDate: Timestamp?,
 
+    val provider: String, // GOOGLE
+    val providerId: String, // sub (google에서 사용 중인 PK 같은 친구)
+
     val role: String = Constants.ROLE_USER,
 )
