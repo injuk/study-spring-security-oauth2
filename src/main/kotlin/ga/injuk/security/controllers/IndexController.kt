@@ -48,9 +48,11 @@ class IndexController(
     @GetMapping(path = ["", "/"])
     fun index(): String = "index"
 
+    /** 이제 Oauth로 로그인하건, 일반 로그인을 하건 PrincipalDetails 타입으로 한 번에 처리할 수 있다! */
     @GetMapping("/user")
     @ResponseBody
-    fun user(): String {
+    fun user(@AuthenticationPrincipal details: PrincipalDetails): String {
+        println("details: ${details.user}")
         return "user"
     }
 

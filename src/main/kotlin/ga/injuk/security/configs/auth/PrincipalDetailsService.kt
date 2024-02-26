@@ -21,6 +21,6 @@ class PrincipalDetailsService(
 
         val user = userRepository.findByUsername(username)
 
-        return user?.let { PrincipalDetails(user = it) }
+        return user?.let { PrincipalDetails(user = it, attributes = mutableMapOf()) }
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User
  */
 class PrincipalDetails(
     val user: User,
+    private val attributes: MutableMap<String, Any>,
 ) : UserDetails, OAuth2User {
     // 해당 User의 권한을 반환
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
@@ -36,8 +37,8 @@ class PrincipalDetails(
     // 예를 들어 정책 상 마지막 로그인 날짜로부터 1년이 지난 경우 휴면이라면, 이를 계산하여 false를 반환할 수 있다.
     override fun isEnabled(): Boolean = true
 
-    override fun getName(): String {
-        TODO("Not yet implemented")
+    override fun getName(): String? {
+        return attributes["sub"] as? String
     }
 
     override fun <A : Any?> getAttribute(name: String?): A? {
@@ -45,6 +46,6 @@ class PrincipalDetails(
     }
 
     override fun getAttributes(): MutableMap<String, Any> {
-        TODO("Not yet implemented")
+        return attributes
     }
 }
