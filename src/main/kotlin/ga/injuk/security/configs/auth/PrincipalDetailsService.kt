@@ -15,6 +15,7 @@ class PrincipalDetailsService(
      * 자동으로 UserDetailsService 타입으로 IoC 되어 있는 loadUserByUsername 함수가 실행된다.
      * 반환된 UserDetails는 Authentication 내부에 포함된 후, 스프링 시큐리티의 세션 영역에 저장된다.
      * 이러한 과정은 자동으로 실행되므로, Authentication 객체를 생성하거나 이를 세션 영역에 저장하는 과정은 직접 작성할 필요가 없다!
+     * 또한, 요 메소드가 종료되는 시점에 @AuthenticationPrincipal 어노테이션이 활성화된다!!!
      */
     override fun loadUserByUsername(username: String?): UserDetails? {
         require(username != null) { "username cannotbe null" }
